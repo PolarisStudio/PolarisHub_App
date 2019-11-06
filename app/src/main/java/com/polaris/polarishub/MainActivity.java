@@ -14,6 +14,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ServerManager SM = new ServerManager(this);
-        
+
     }
 }
