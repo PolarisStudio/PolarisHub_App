@@ -1,10 +1,7 @@
-package com.polaris.polarishub.Backend;
+package com.polaris.polarishub.Tools;
 
-import android.appwidget.AppWidgetManager;
 import android.os.Environment;
-import android.os.FileUtils;
 
-import com.polaris.polarishub.MainActivity;
 import com.yanzhenjie.andserver.util.IOUtils;
 
 import java.io.File;

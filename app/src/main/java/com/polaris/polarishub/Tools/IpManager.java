@@ -1,4 +1,4 @@
-package com.polaris.polarishub.Backend;
+package com.polaris.polarishub.Tools;
 
 import android.content.Context;
 import android.net.wifi.WifiInfo;

@@ -18,4 +18,6 @@ public class HubManager {
         Intent intent = new Intent("com.polaris.polarishub.ACCESS_REQUEST");
         return hello;
     }
+    //@RequestMapping("phb")
+    //public
 }

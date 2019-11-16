@@ -29,4 +29,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.yanzhenjie.andserver:api:2.0.5'
     annotationProcessor 'com.yanzhenjie.andserver:processor:2.0.5'
+    implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
 }
