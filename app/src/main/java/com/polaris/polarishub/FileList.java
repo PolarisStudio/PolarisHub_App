@@ -74,7 +74,7 @@ public class FileList extends AppCompatActivity {
 				selectedFile = item.getFile();
 				String filename = selectedFile.getName();
 				//生成二维码
-				String Url = "http://"+ IpManager.getIpAddress(FileList.this) +"：8080/files/"+filename;
+				String Url = "http://"+ IpManager.getIpAddress(FileList.this) +":8080/files/"+filename;
 				System.out.println(Url);
 				Bitmap qr = MainActivity.createQRcodeImage(Url,1000,1000);
 				if(null!=qr){

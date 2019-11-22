@@ -26,6 +26,16 @@ public class HubManager {
         return hello;
     }
     //"/files"不加参数处理为获取文件目录（尚未开始进展）
+    @GetMapping("/files")
+    public void testFile(HttpRequest request, HttpResponse response){
+        File polarisHubFolder = new File(Environment.getExternalStorageDirectory(), "PolarisHub");
+        if (!polarisHubFolder.exists()) {
+            polarisHubFolder.mkdir();
+        }
+        File testFile = new File(polarisHubFolder, "Butler1.3.3.2.apk");
+        ResponseBody body = new FileBody(testFile);
+        response.setBody(body);
+    }
     //"/files"处理下载请求，使用路径变量读取文件名
     @GetMapping("/files/{filename}")
     public void returnFile(@PathVariable("filename")String filename, HttpResponse response){
