@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+
+    <ImageView
+        android:id="@+id/p_item"
+        android:layout_width="50dip"
+        android:layout_height="50dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/basic_file" />
+    <TextView
+        android:id="@+id/log"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/d_item"
+        android:layout_alignParentRight="true"
+        android:gravity="fill"
+        android:textColor="#7B7B7B"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:text="10/05"/>
+
+    <TextView
+        android:id="@+id/t_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/d_item"
+        android:layout_alignParentTop="true"
+        android:gravity="fill"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:text="此处标题" />
+
+    <TextView
+        android:id="@+id/d_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/t_item"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/p_item"
+        android:gravity="fill"
+        android:text="此处展示详细内容，本界面由Deslate开发"
+        android:textSize="10sp" />
+
+
+
+    <LinearLayout
+        android:id="@+id/manage_item"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal" 
+        android:layout_gravity="right">
+
+        <Button
+            android:id="@+id/cancel_manage"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#84C1FF"
+            android:textColor="#FAF4FF"
+            android:text="取消" />
+
+        <Button
+            android:id="@+id/delete_item"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#84C1FF"
+            android:text="删除"
+            android:textColor="#FAF4FF" />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -6,7 +6,7 @@ android {
     useLibrary'org.apache.http.legacy'
     defaultConfig {
         applicationId "com.polaris.polarishub"
-        minSdkVersion 23
+        minSdkVersion 22
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -30,4 +30,5 @@ dependencies {
     implementation 'com.yanzhenjie.andserver:api:2.0.5'
     annotationProcessor 'com.yanzhenjie.andserver:processor:2.0.5'
     implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
+    implementation 'com.google.zxing:core:3.4.0'
 }
