@@ -1,6 +1,9 @@
 package com.polaris.polarishub;
 
 import android.app.AlertDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -43,6 +46,8 @@ public class FileList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.file_list);
+		getSupportActionBar().hide();
+		getWindow().setStatusBarColor(0xFF000000);
 
 		filelist = MainActivity.filelist;
         
@@ -74,7 +79,7 @@ public class FileList extends AppCompatActivity {
 				selectedFile = item.getFile();
 				String filename = selectedFile.getName();
 				//生成二维码
-				String Url = "http://"+ IpManager.getIpAddress(FileList.this) +":8080/files/"+filename;
+				final String Url = "http://"+ IpManager.getIpAddress(FileList.this) +":8080/files/"+filename;
 				System.out.println(Url);
 				Bitmap qr = MainActivity.createQRcodeImage(Url,1000,1000);
 				if(null!=qr){
@@ -87,12 +92,16 @@ public class FileList extends AppCompatActivity {
 				//绘制界面
 				title.setText(titleString);
 
-				final Button Quit = (Button)dialogView.findViewById(R.id.download_confirm);
+				final Button copyUri = (Button)dialogView.findViewById(R.id.copy_uri_butt);
 				//downloadConfirm.setVisibility(View.GONE) ;
-				Quit.setOnClickListener(new View.OnClickListener() {
+				copyUri.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						//点击关闭dialogue（未完成）
+						System.out.println("try to copy");
+						ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);// 创建普通字符型ClipData
+						ClipData mClipData = ClipData.newPlainText("PolarisHub file Url", Url);// 将ClipData内容放到系统剪贴板里。
+						cm.setPrimaryClip(mClipData);
+						Toast.makeText(FileList.this,"已复制到剪贴板,\n电脑端可粘贴uri至浏览器自动下载",Toast.LENGTH_LONG).show();
 					}
 				});
 				customizeDialog.show();

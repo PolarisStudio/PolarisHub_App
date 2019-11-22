@@ -15,6 +15,8 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -65,12 +67,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String mRootUrl;
 
     static transient public File[] filelist ;
+    static public boolean developerState ;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
+        getWindow().setStatusBarColor(0xFF000000);
         setContentView(R.layout.activity_main);
+        developerState = false;//开发模式默认关闭
         if (Build.VERSION.SDK_INT >= 23 && checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
@@ -94,24 +101,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTvMessage = findViewById(R.id.tv_message);
         qrForTest= findViewById(R.id.qr_for_test);
 
-        mRootUrl = "http://" + IpManager.getIpAddress(this) + ":8080/files/Butler1.3.3.2.apk";
-        System.out.println(mRootUrl);
+        if(developerState==true) {//开发模式将显示一些辅助组件
+            mRootUrl = "http://" + IpManager.getIpAddress(this) + ":8080/files/Butler1.3.3.2.apk";
+            System.out.println(mRootUrl);
 
-        Bitmap qr = createQRcodeImage(mRootUrl,100,100);
-        if(null!=qr){
-            qrForTest.setImageBitmap(qr);
+            Bitmap qr = createQRcodeImage(mRootUrl, 100, 100);
+            if (null != qr) {
+                qrForTest.setImageBitmap(qr);
+            } else {
+                System.out.println("fail to get qrCodeImage");
+                Toast.makeText(this, "fail to create qrcode", Toast.LENGTH_LONG).show();
+                //qrForTest.setImageBitmap(qr);
+            }
+
+
+            Download("http://10.30.177.0:8080/files/Butler1.3.3.2.apk", "Butler1.3.3.2.apk");
+
+            mBtnStart.setOnClickListener(this);
+            mBtnStop.setOnClickListener(this);
+            mBtnBrowser.setOnClickListener(this);
         }else{
-            System.out.println("fail to get qrCodeImage");
-            Toast.makeText(this,"fail to create qrcode",Toast.LENGTH_LONG).show();
-            //qrForTest.setImageBitmap(qr);
+            mBtnBrowser.setVisibility(View.GONE);
+            mBtnStart .setVisibility(View.GONE);
+            mBtnStop .setVisibility(View.GONE);
+            qrForTest.setVisibility(View.GONE);
+            mTvMessage.setVisibility(View.GONE);
         }
 
 
-        Download("http://10.30.177.0:8080/files/Butler1.3.3.2.apk","Butler1.3.3.2.apk");
-
-        mBtnStart.setOnClickListener(this);
-        mBtnStop.setOnClickListener(this);
-        mBtnBrowser.setOnClickListener(this);
         scanButt.setOnClickListener(this);
         shareButt.setOnClickListener(this);
 
@@ -456,5 +473,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return null;
         }
     }
+
 }
 
