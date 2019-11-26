@@ -102,7 +102,7 @@ public class FileList extends AppCompatActivity {
 				title = (TextView) dialogView.findViewById(R.id.download_status ) ;
 				QRcodeImage = (ImageView) dialogView.findViewById(R.id.qr_for_share) ;
 				//从选择的元素获取文件名等数据
-				final String titleString = item.getTitle();
+				final String titleString = item.getFile().getName();
 				selectedFile = item.getFile();
 				String filename = selectedFile.getName();
 				//生成二维码
