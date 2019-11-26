@@ -7,6 +7,19 @@
     tools:context=".MainActivity">
 
 
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foregroundGravity="bottom"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/background_1" />
 
     <TextView
         android:id="@+id/tv_message"
@@ -56,12 +69,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="162dp"
+        android:layout_marginTop="94dp"
         android:layout_marginEnd="161dp"
         android:layout_marginBottom="408dp"
         android:text="扫一扫"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <ImageView
         android:id="@+id/qr_for_test"
@@ -69,7 +84,7 @@
         android:layout_height="130dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="212dp"
+        android:layout_marginBottom="104dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_browse"
         app:layout_constraintHorizontal_bias="0.0"
@@ -80,33 +95,29 @@
         android:id="@+id/share_butt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="163dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="160dp"
         android:text="打开目录"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scan_butt" />
-
-    <ImageView
-        android:id="@+id/background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:foregroundGravity="bottom"
-        android:scaleType="fitXY"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/background_1" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="119dp"
+        android:layout_marginTop="134dp"
         android:layout_marginEnd="120dp"
-        android:layout_marginBottom="96dp"
+        android:layout_marginBottom="550dp"
         android:text="PolarisHub"
         android:textColor="#FAF4FF"
         android:textSize="35sp"
-        app:layout_constraintBottom_toTopOf="@+id/scan_butt"
-        app:layout_constraintEnd_toEndOf="@+id/background" />
+        app:layout_constraintBottom_toBottomOf="@+id/background"
+        app:layout_constraintEnd_toEndOf="@+id/background"
+        app:layout_constraintStart_toStartOf="@+id/background"
+        app:layout_constraintTop_toTopOf="@+id/background" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

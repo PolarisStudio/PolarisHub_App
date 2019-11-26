@@ -4,6 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <Button
+        android:id="@+id/select_file_butt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000066"
+        android:textColor="#FFFFFF"
+        android:textSize="30dp"
+        android:text="+" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
