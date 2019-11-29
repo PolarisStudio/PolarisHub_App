@@ -22,7 +22,7 @@ public class HubManager {
     @RequestMapping("/")
     public String login(){
 
-        String hello="hahaha";
+        String hello="index.html";
         return hello;
     }
     //"/files"不加参数处理为获取文件目录（尚未开始进展）

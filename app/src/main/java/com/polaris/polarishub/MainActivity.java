@@ -34,6 +34,7 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.google.zxing.qrcode.QRCodeWriter;
+import com.polaris.polarishub.Tools.CrashHandler;
 import com.polaris.polarishub.Tools.IpManager;
 import com.yanzhenjie.andserver.sample.ServerManager;
 
@@ -73,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        CrashHandler crashHandler = CrashHandler.getInstance();
+        crashHandler.init(getApplicationContext());
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
         getWindow().setStatusBarColor(0xFF000000);
@@ -92,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 != PackageManager.PERMISSION_GRANTED) {
             // Permission is not granted
         }
-
         mBtnStart = findViewById(R.id.btn_start);
         mBtnStop = findViewById(R.id.btn_stop);
         mBtnBrowser = findViewById(R.id.btn_browse);
@@ -102,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         qrForTest= findViewById(R.id.qr_for_test);
 
         if(developerState==true) {//开发模式将显示一些辅助组件
-            mRootUrl = "http://" + IpManager.getIpAddress(this) + ":8080/files/Butler1.3.3.2.apk";
+            mRootUrl = "http://" + IpManager.getIpAddress(this) + ":8080/";
             System.out.println(mRootUrl);
 
             Bitmap qr = createQRcodeImage(mRootUrl, 100, 100);
@@ -115,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
 
-            Download("http://10.30.177.0:8080/files/Butler1.3.3.2.apk", "Butler1.3.3.2.apk");
+            Download("http://10.30.51.74:8080/files/Screenshot_20191129_091304_com.polaris.polarishub.jpg", "Butler1.3.3.2.apk");
 
             mBtnStart.setOnClickListener(this);
             mBtnStop.setOnClickListener(this);
@@ -138,6 +140,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // startServer;
         mBtnStart.performClick();
+
+        scanButt.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                //选取本地二维码
+
+                return false;
+            }
+        });
     }
 
     @Override
@@ -167,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Intent intent = new Intent();
                     intent.setAction("android.intent.action.VIEW"); //
                     System.out.println(mRootUrl);
-                    intent.setData(Uri.parse("http://" + IpManager.getIpAddress(this) + ":8080/files/Butler1.3.3.2.apk"));
+                    intent.setData(Uri.parse("http://" + IpManager.getIpAddress(this) + ":8080/"));
                     startActivity(intent);
                 }
                 break;
@@ -213,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         if (result.getContents() == null) {
                             Toast.makeText(this, "取消扫描", Toast.LENGTH_LONG).show();
                         } else {
-                            //Toast.makeText(this, "扫描内容:" + result.getContents(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(this, "扫描内容:" + result.getContents(), Toast.LENGTH_LONG).show();
                             if(CheckResult(result.getContents())==true){
                                 String uri = result.getContents();
                                 String filename = getFilenameFromUri(uri);
