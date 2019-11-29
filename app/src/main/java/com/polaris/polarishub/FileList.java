@@ -62,7 +62,7 @@ public class FileList extends AppCompatActivity {
 		getSupportActionBar().hide();
 		getWindow().setStatusBarColor(0xFF000000);
 
-		filelist = MainActivity.filelist;
+		//filelist = MainActivity.filelist;
         
         TextView test=(TextView)findViewById(R.id.textView2);
         test.setText("Polarishub");
@@ -324,7 +324,7 @@ public class FileList extends AppCompatActivity {
 			String detail="文件类型："+type;
 			int imageId=0;
 			String time="no time";
-			if (imageId==R.drawable.basic_file){
+			if (imageId==R.mipmap.basic_file){
 				imageId=0;
 			}
 			TDPitem item=new TDPitem(currentFile,title,detail,imageId,time,TDPitem.SHOW);

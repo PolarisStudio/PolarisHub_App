@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center_horizontal"
-        app:srcCompat="@drawable/basic_file" />
+        app:srcCompat="@mipmap/basic_file" />
 
     <TextView
         android:id="@+id/download_status"

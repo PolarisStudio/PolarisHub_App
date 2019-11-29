@@ -86,6 +86,6 @@ import static android.view.View.GONE;
         public abstract void myOnClick(View v);
     }
 	public void setImage(int picId){
-		pic_image.setImageResource(R.drawable.basic_file);
+		pic_image.setImageResource(R.mipmap.basic_file);
 	}
 }

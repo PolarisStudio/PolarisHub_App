@@ -15,11 +15,10 @@
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/background_1" />
+        app:srcCompat="@mipmap/background_1" />
 
     <TextView
         android:id="@+id/tv_message"
@@ -89,7 +88,7 @@
         app:layout_constraintEnd_toStartOf="@+id/btn_browse"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/basic_file" />
+        app:srcCompat="@mipmap/basic_file" />
 
     <Button
         android:id="@+id/share_butt"

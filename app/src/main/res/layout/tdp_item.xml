@@ -11,7 +11,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:scaleType="fitXY"
-        android:src="@drawable/basic_file" />
+        android:src="@mipmap/basic_file" />
     <TextView
         android:id="@+id/log"
         android:layout_width="wrap_content"
