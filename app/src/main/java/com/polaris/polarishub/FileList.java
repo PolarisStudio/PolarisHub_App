@@ -62,7 +62,7 @@ public class FileList extends AppCompatActivity {
 		getSupportActionBar().hide();
 		getWindow().setStatusBarColor(0xFF000000);
 
-		//filelist = MainActivity.filelist;
+		filelist = MainActivity.filelist;
         
         TextView test=(TextView)findViewById(R.id.textView2);
         test.setText("Polarishub");
