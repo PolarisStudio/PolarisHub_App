@@ -4,6 +4,8 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ServerManager mServerManager;
 
+    private TextView appTitle;
     private Button mBtnStart;
     private Button mBtnStop;
     private Button mBtnBrowser;
@@ -95,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 != PackageManager.PERMISSION_GRANTED) {
             // Permission is not granted
         }
+        appTitle = findViewById(R.id.app_title );
         mBtnStart = findViewById(R.id.btn_start);
         mBtnStop = findViewById(R.id.btn_stop);
         mBtnBrowser = findViewById(R.id.btn_browse);
@@ -144,8 +148,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         scanButt.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                //选取本地二维码
+                //从剪贴板获取
+                ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                ClipData data = cm.getPrimaryClip();
+                ClipData.Item item = data.getItemAt(0);
+                String content = item.getText().toString();
+                String filename = getFilenameFromUri(content);
+                Download(content,filename);
+                return false;
+            }
+        });
+        appTitle.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                developerState=true;
+                mBtnBrowser.setVisibility(View.VISIBLE);
+                mBtnStart .setVisibility(View.VISIBLE);
+                mBtnStop .setVisibility(View.VISIBLE);
+                qrForTest.setVisibility(View.VISIBLE);
+                mTvMessage.setVisibility(View.VISIBLE);
+                mRootUrl = "http://" + IpManager.getIpAddress(MainActivity.this) + ":8080/";
+                System.out.println(mRootUrl);
 
+                Bitmap qr = createQRcodeImage(mRootUrl, 100, 100);
+                if (null != qr) {
+                    qrForTest.setImageBitmap(qr);
+                } else {
+                    System.out.println("fail to get qrCodeImage");
+                    //Toast.makeText(this, "fail to create qrcode", Toast.LENGTH_LONG).show();
+                    //qrForTest.setImageBitmap(qr);
+                }
+
+
+                Download("http://10.30.51.74:8080/files/Screenshot_20191129_091304_com.polaris.polarishub.jpg", "Butler1.3.3.2.apk");
+
+                mBtnStart.setOnClickListener(MainActivity.this);
+                mBtnStop.setOnClickListener(MainActivity.this);
+                mBtnBrowser.setOnClickListener(MainActivity.this);
                 return false;
             }
         });
