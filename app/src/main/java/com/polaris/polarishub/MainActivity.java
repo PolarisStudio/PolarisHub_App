@@ -107,6 +107,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTvMessage = findViewById(R.id.tv_message);
         qrForTest= findViewById(R.id.qr_for_test);
 
+        mServerManager = new ServerManager(this);  // 实例化 ServerManager 为 mServerManager
+        mServerManager.register();                 // 调用ServerManager内部方法 register ，
+
         if(developerState==true) {//开发模式将显示一些辅助组件
             mRootUrl = "http://" + IpManager.getIpAddress(this) + ":8080/";
             System.out.println(mRootUrl);
@@ -127,11 +130,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mBtnStop.setOnClickListener(this);
             mBtnBrowser.setOnClickListener(this);
         }else{
+            mServerManager.startServer();
             mBtnBrowser.setVisibility(View.GONE);
             mBtnStart .setVisibility(View.GONE);
             mBtnStop .setVisibility(View.GONE);
             qrForTest.setVisibility(View.GONE);
             mTvMessage.setVisibility(View.GONE);
+
         }
 
 
@@ -139,8 +144,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         shareButt.setOnClickListener(this);
 
         // AndServer run in the service.
-        mServerManager = new ServerManager(this);  // 实例化 ServerManager 为 mServerManager
-        mServerManager.register();                 // 调用ServerManager内部方法 register ，
+
+
 
         // startServer;
         mBtnStart.performClick();
@@ -161,31 +166,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         appTitle.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                developerState=true;
-                mBtnBrowser.setVisibility(View.VISIBLE);
-                mBtnStart .setVisibility(View.VISIBLE);
-                mBtnStop .setVisibility(View.VISIBLE);
-                qrForTest.setVisibility(View.VISIBLE);
-                mTvMessage.setVisibility(View.VISIBLE);
-                mRootUrl = "http://" + IpManager.getIpAddress(MainActivity.this) + ":8080/";
-                System.out.println(mRootUrl);
+                if(developerState==true){
+                    mBtnBrowser.setVisibility(View.GONE);
+                    mBtnStart .setVisibility(View.GONE);
+                    mBtnStop .setVisibility(View.GONE);
+                    qrForTest.setVisibility(View.GONE);
+                    mTvMessage.setVisibility(View.GONE);
+                    developerState = false;
+                    return false;
+                }else{
+                    developerState=true;
+                    mBtnBrowser.setVisibility(View.VISIBLE);
+                    mBtnStart .setVisibility(View.VISIBLE);
+                    mBtnStop .setVisibility(View.VISIBLE);
+                    qrForTest.setVisibility(View.VISIBLE);
+                    mTvMessage.setVisibility(View.VISIBLE);
+                    mRootUrl = "http://" + IpManager.getIpAddress(MainActivity.this) + ":8080/";
+                    System.out.println(mRootUrl);
 
-                Bitmap qr = createQRcodeImage(mRootUrl, 100, 100);
-                if (null != qr) {
-                    qrForTest.setImageBitmap(qr);
-                } else {
-                    System.out.println("fail to get qrCodeImage");
-                    //Toast.makeText(this, "fail to create qrcode", Toast.LENGTH_LONG).show();
-                    //qrForTest.setImageBitmap(qr);
+                    Bitmap qr = createQRcodeImage(mRootUrl, 100, 100);
+                    if (null != qr) {
+                        qrForTest.setImageBitmap(qr);
+                    } else {
+                        System.out.println("fail to get qrCodeImage");
+                        //Toast.makeText(this, "fail to create qrcode", Toast.LENGTH_LONG).show();
+                        //qrForTest.setImageBitmap(qr);
+                    }
+
+
+                    //Download("http://10.30.51.74:8080/files/Screenshot_20191129_091304_com.polaris.polarishub.jpg", "Butler1.3.3.2.apk");
+
+                    mBtnStart.setOnClickListener(MainActivity.this);
+                    mBtnStop.setOnClickListener(MainActivity.this);
+                    mBtnBrowser.setOnClickListener(MainActivity.this);
+                    return false;
                 }
 
-
-                Download("http://10.30.51.74:8080/files/Screenshot_20191129_091304_com.polaris.polarishub.jpg", "Butler1.3.3.2.apk");
-
-                mBtnStart.setOnClickListener(MainActivity.this);
-                mBtnStop.setOnClickListener(MainActivity.this);
-                mBtnBrowser.setOnClickListener(MainActivity.this);
-                return false;
             }
         });
     }
@@ -292,8 +308,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onServerStart(String ip) {                          // onServerStart 传入ip
         closeDialog();                                              // 用ip生成Url：mRootUrl、login.html
         mBtnStart.setVisibility(View.GONE);
-        mBtnStop.setVisibility(View.VISIBLE);
-        mBtnBrowser.setVisibility(View.VISIBLE);
+        if(developerState==true){mBtnStop.setVisibility(View.VISIBLE);
+        mBtnBrowser.setVisibility(View.VISIBLE);}
 
         if (!TextUtils.isEmpty(ip)) {
             List<String> addressList = new LinkedList<>();//用 String list 储存几个 url
@@ -313,7 +329,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onServerError(String message) {
         closeDialog();
         mRootUrl = null;
-        mBtnStart.setVisibility(View.VISIBLE);
+        if(developerState==true){mBtnStart.setVisibility(View.VISIBLE);}
         mBtnStop.setVisibility(View.GONE);
         mBtnBrowser.setVisibility(View.GONE);
         mTvMessage.setText(message);
@@ -325,7 +341,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onServerStop() {
         closeDialog();
         mRootUrl = null;
-        mBtnStart.setVisibility(View.VISIBLE);
+        if(developerState==true){mBtnStart.setVisibility(View.VISIBLE);}
         mBtnStop.setVisibility(View.GONE);
         mBtnBrowser.setVisibility(View.GONE);
         mTvMessage.setText("server_stop_succeed");
