@@ -94,7 +94,7 @@ BroadcastReceiver类 作为广播接收器处理活动之间的通信
 
 基本可用的版本系列
 
-#####0.4.0
+##### 0.4.0
 
 修复了服务器不会自启的问题，修复了进入开发者模式之后变不回正常模式的bug，是一个较为完整的版本。（[下载链接](https://github.com/PolarisStudio/PolarisHub_App/blob/d58b5c1242f3520cc398ef65cd10319838490f2a/app/release/app-release.apk?raw=true)）
 
