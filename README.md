@@ -20,7 +20,7 @@ PolarisHub_Android （PHA）延续了PolarisHub_Flask的基本设计，以“选
 
 文件列表页，用于罗列文件。
 
-###服务类
+### 服务类
 
 #### CoreService
 
