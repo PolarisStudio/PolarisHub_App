@@ -70,7 +70,7 @@ BroadcastReceiver类 作为广播接收器处理活动之间的通信
 
 ### 0.测试版
 
-####0.1
+#### 0.1
 
 第一个可用版本，有扫一扫和打开目录功能，需手动添加文件到目录中。存在服务器不会自启的问题。（[下载链接](https://github.com/PolarisStudio/PolarisHub_App/blob/7cb13a3acd43dbf438ae329c5d9ff58ad7df3fd4/app/release/app-release.apk?raw=true)）
 
@@ -104,4 +104,4 @@ BroadcastReceiver类 作为广播接收器处理活动之间的通信
 
 ## 更多
 
-[北极星工作室](
+[北极星工作室](https://github.com/PolarisStudio)
