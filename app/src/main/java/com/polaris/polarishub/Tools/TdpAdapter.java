@@ -36,7 +36,7 @@ import static android.view.View.GONE;
 	private Button deleteItem;
 	public ImageView pic_image;
 	private Context Context;
-	
+
 	public TdpAdapter(Context context, int textViewResourceId, List<TDPitem> objects, MyClickListener listener1, MyClickListener listener2){
 		super(context,textViewResourceId,objects);
 		Context=context;
@@ -47,9 +47,9 @@ import static android.view.View.GONE;
 	}
 	@Override
 	public View getView(int position,View convertView,ViewGroup parent){
-		
+
 		tdpitem=getItem(position);
-		
+
 		view=LayoutInflater.from(getContext()).inflate(resourceId, null);
 		Manage=(LinearLayout)view.findViewById(R.id.manage_item);
 		TextView log=(TextView)view.findViewById(R.id.log);
@@ -58,33 +58,33 @@ import static android.view.View.GONE;
 		pic_image=(ImageView)view.findViewById(R.id.p_item);
 		cancelManage=(Button)view.findViewById(R.id.cancel_manage);
 		deleteItem=(Button)view.findViewById(R.id.delete_item);
-		
+
 		log.setText(tdpitem.getLog());
 		log.setVisibility(GONE);
 		title.setText(tdpitem.getTitle());
 		briefDetail.setText(tdpitem.getBriefDetail());
 		setImage(tdpitem.getimageId());
-		
+
 		cancelManage.setOnClickListener(mListener1);
 		deleteItem.setOnClickListener(mListener2);
-		
+
 		if(tdpitem.getState()==TDPitem.SHOW){
 			Manage.setVisibility(GONE);
 		}else if(tdpitem.getState()==TDPitem.MANAGE){
 			Manage.setVisibility(View.VISIBLE);
 		}
-		
+
 		return view;
-    }
+	}
 
 	public static abstract class MyClickListener implements OnClickListener {
-        
-        @Override
-        public void onClick(View v) {
-            myOnClick(v);
-        }
-        public abstract void myOnClick(View v);
-    }
+
+		@Override
+		public void onClick(View v) {
+			myOnClick(v);
+		}
+		public abstract void myOnClick(View v);
+	}
 	public void setImage(int picId){
 		pic_image.setImageResource(R.mipmap.basic_file);
 	}

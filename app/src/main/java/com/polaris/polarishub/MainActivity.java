@@ -18,7 +18,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -38,7 +37,7 @@ import com.google.zxing.integration.android.IntentResult;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.polaris.polarishub.Tools.CrashHandler;
 import com.polaris.polarishub.Tools.IpManager;
-import com.yanzhenjie.andserver.sample.ServerManager;
+import com.polaris.polarishub.Tools.ServerManager;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -72,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     static transient public File[] filelist ;
     static public boolean developerState ;
+
+    static public String topfile;
 
 
     @Override
@@ -489,7 +490,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         @Override
         protected void onProgressUpdate(Integer... values){
-            downloadStatus.setText("下载进度："+values[0]);
+            downloadStatus.setText("下载进度："+values[0]+"%");
             progress.setProgress(values[0]) ;
         }
         @Override

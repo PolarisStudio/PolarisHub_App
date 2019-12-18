@@ -16,6 +16,8 @@ import com.yanzhenjie.andserver.http.ResponseBody;
 
 import java.io.File;
 
+import static com.polaris.polarishub.MainActivity.topfile;
+
 @RestController
 public class HubManager {
     //空路径获取用户名片（尚未完善）
@@ -40,6 +42,9 @@ public class HubManager {
     @GetMapping("/files/{filename}")
     public void returnFile(@PathVariable("filename")String filename, HttpResponse response){
         String fileName = filename;
+        if(filename=="top"){
+            filename = topfile;
+        }
         File polarisHubFolder = new File(Environment.getExternalStorageDirectory(), "PolarisHub");
         if (!polarisHubFolder.exists()) {
             polarisHubFolder.mkdir();

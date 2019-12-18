@@ -45,8 +45,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.net.FileNameMap;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.polaris.polarishub.MainActivity.topfile;
 
 public class FileList extends AppCompatActivity {
 	
@@ -56,7 +59,7 @@ public class FileList extends AppCompatActivity {
 	transient File[] filelist ;
 	
 	@Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.file_list);
 		getSupportActionBar().hide();
@@ -70,7 +73,7 @@ public class FileList extends AppCompatActivity {
         initItems();
         TdpAdapter adapter=new TdpAdapter(FileList.this,R.layout.tdp_item,items,mListener1,mListener2);
 
-        Button selectFile = (Button)findViewById(R.id.select_file_butt );
+        final Button selectFile = (Button)findViewById(R.id.select_file_butt );
         selectFile.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -101,10 +104,19 @@ public class FileList extends AppCompatActivity {
 				ImageView QRcodeImage;
 				title = (TextView) dialogView.findViewById(R.id.download_status ) ;
 				QRcodeImage = (ImageView) dialogView.findViewById(R.id.qr_for_share) ;
+				final Button copyUri = (Button)dialogView.findViewById(R.id.copy_uri_butt);
+				final Button setTop = (Button)dialogView.findViewById(R.id.set_top);
 				//从选择的元素获取文件名等数据
 				final String titleString = item.getFile().getName();
 				selectedFile = item.getFile();
-				String filename = selectedFile.getName();
+				final String filename = selectedFile.getName();
+				//检验置顶状态
+				//Toast.makeText(FileList.this,topfile+"\n"+filename,Toast.LENGTH_LONG).show();
+				if(filename.equals(topfile)){
+					setTop.setText("已置顶") ;
+
+
+				}
 				//生成二维码
 				final String Url = "http://"+ IpManager.getIpAddress(FileList.this) +":8080/files/"+filename;
 				System.out.println(Url);
@@ -119,7 +131,7 @@ public class FileList extends AppCompatActivity {
 				//绘制界面
 				title.setText(titleString);
 
-				final Button copyUri = (Button)dialogView.findViewById(R.id.copy_uri_butt);
+
 				//downloadConfirm.setVisibility(View.GONE) ;
 				copyUri.setOnClickListener(new View.OnClickListener() {
 					@Override
@@ -131,6 +143,23 @@ public class FileList extends AppCompatActivity {
 						Toast.makeText(FileList.this,"已复制到剪贴板,\n电脑端可粘贴uri至浏览器自动下载",Toast.LENGTH_LONG).show();
 					}
 				});
+				setTop.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						if(filename == topfile){
+							String defaultUrl = "http://"+IpManager.getIpAddress(FileList.this)+":8080/files/top";
+							Toast.makeText(FileList.this,"文件"+topfile+"已是置顶文件，无需置顶\n可访问默认Url："+defaultUrl+"获取文件\n该路径已经复制到剪贴板。",Toast.LENGTH_LONG).show();
+						}else{
+							topfile= filename;
+							String defaultUrl = "http://"+IpManager.getIpAddress(FileList.this)+":8080/files/top";
+							ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);// 创建普通字符型ClipData
+							ClipData mClipData = ClipData.newPlainText("PolarisHub file Url", defaultUrl);// 将ClipData内容放到系统剪贴板里。
+							cm.setPrimaryClip(mClipData);
+							Toast.makeText(FileList.this,"文件"+topfile+"已被置顶\n可访问默认Url："+defaultUrl+"获取文件\n该路径已经复制到剪贴板。",Toast.LENGTH_LONG).show();
+							setTop.setText("已置顶") ;
+						}
+					}
+				}) ;
 				customizeDialog.show();
         	}
         });
@@ -142,7 +171,7 @@ public class FileList extends AppCompatActivity {
         		TDPitem item=items.get(position);
         		item.setState(TDPitem.MANAGE);
         		selectedFile=item.getFile();
-        		
+
         		TdpAdapter adapter=new TdpAdapter(FileList.this,R.layout.tdp_item,items,mListener1,mListener2);
                 ListView dailyList=(ListView)findViewById(R.id.daily_list);
                 dailyList.setAdapter(adapter);
