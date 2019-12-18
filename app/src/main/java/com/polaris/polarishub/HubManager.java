@@ -25,7 +25,7 @@ public class HubManager {
     public String login(){
 
         String hello="index.html";
-        return hello;
+        return topfile;
     }
     //"/files"不加参数处理为获取文件目录（尚未开始进展）
     @GetMapping("/files")
@@ -42,8 +42,8 @@ public class HubManager {
     @GetMapping("/files/{filename}")
     public void returnFile(@PathVariable("filename")String filename, HttpResponse response){
         String fileName = filename;
-        if(filename=="top"){
-            filename = topfile;
+        if(fileName.equals("top")){
+            fileName = topfile;
         }
         File polarisHubFolder = new File(Environment.getExternalStorageDirectory(), "PolarisHub");
         if (!polarisHubFolder.exists()) {
