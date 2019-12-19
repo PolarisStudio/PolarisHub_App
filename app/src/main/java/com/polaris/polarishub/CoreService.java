@@ -16,6 +16,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
 
+import static com.polaris.polarishub.MainActivity.serverStatus;
+
 public class CoreService extends Service {
 
 
@@ -62,8 +64,13 @@ public class CoreService extends Service {
 
     @Override
     public void onDestroy() {
-        stopServer();
-        super.onDestroy();
+        //if(serverStatus==true){
+            //super.onCreate();
+        //}else{
+            stopServer();
+            super.onDestroy();
+        //}
+
     }
 
     /**

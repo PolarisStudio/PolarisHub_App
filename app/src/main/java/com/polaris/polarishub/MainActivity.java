@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     static public boolean developerState ;
 
     static public String topfile;
+    static public boolean serverStatus;
 
 
     @Override
@@ -110,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mServerManager = new ServerManager(this);  // 实例化 ServerManager 为 mServerManager
         mServerManager.register();                 // 调用ServerManager内部方法 register ，
+        serverStatus = true;
 
         if(developerState==true) {//开发模式将显示一些辅助组件
             mRootUrl = "http://" + IpManager.getIpAddress(this) + ":8080/";
